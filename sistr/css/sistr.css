@@ -1,8 +1,50 @@
-#block1{
-    background-color: red;
-    width: 200px;
+#bienvenue{
+
 }
-#block2{
-    background-color: yellow;
-    width: 200px;
+#derniers-suivis{
+
+}
+#description{
+
+}
+#header-accueil{
+
+}
+#nav-accueil{
+   background-color:  #3E3D88;
+}
+#pied-de-page{
+    background-color: #7A3466;
+}
+#temoignage{
+    background-color: #9E593F;
+}
+.conteneur{
+    width: 960px;
+    margin-right: auto;
+    margin-left: auto;
+}
+#header-accueil > div{
+position: relative;
+}
+#connexion input{
+    width: 250px;
+    border: 1px solid #3E3D88;
+    background-color: transparent;
+    display: block;
+    padding: 8px;
+    margin-bottom: 20px;
+}
+#connexion button{
+    border: none;
+    background: #692F7A;
+    color: white;
+    padding: 8px;
+    border-radius: 5px 5px;
+
+}
+#connexion {
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
