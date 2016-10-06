@@ -6,6 +6,7 @@
     <title>SisTR - Accueil</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/sistr.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans | Roboto:100,100i,400,400i">
 </head>
 <body>
     <header id="header-accueil">
@@ -16,7 +17,7 @@
                </a>
            </h1>
            <div id="connexion">
-                <form href="#" method="get">
+                <form method="get">
                     <input type="text" id="login" name="login" placeholder="Votre login">
                     <input type="password" id="mot-de-passe" name="mot-de-passe" placeholder="Votre mot de passe">
                     <button type="submit"> Se connecter</button>
@@ -26,17 +27,61 @@
     </header>
     <nav id="nav-accueil">
         <div class="conteneur">
-            nav-accueil
+            <ul>
+                <li> <a href="#"> Accueil</a></li>
+                <li> <a href="#"> Découvrir</a></li>
+                <li> <a href="#"> Ressources TR</a></li>
+                <li> <a href="#"> S'inscrire</a></li>
+            </ul>
         </div>
     </nav>
     <header id="bienvenue">
         <div class="conteneur">
-            bienvenue
+            <h2>
+                bienvenue!
+            </h2>
         </div>
     </header>
     <section id="derniers-suivis">
         <div class="conteneur">
-            derniers-suivis
+            <h3>
+                Derniers suivis éffectués
+            </h3>
+            <table>
+                <tr>
+                    <th id="titre" class="bordure">
+                        Technologies Hybrides pour devellopement mobile
+                    </th>
+                    <th id="nom" class="bordure">
+                        WR
+                    </th>
+                    <th id="date" class="bordure">
+                        5/11/2016
+                    </th>
+                </tr>
+                <tr>
+                    <th id="titre" class="bordure">
+                        Virtual Duck: la place des animaux virtuels
+                    </th>
+                    <th id="nom" class="bordure">
+                        HG
+                    </th>
+                    <th id="date" class="bordure">
+                        3/11/2016
+                    </th>
+                </tr>
+                <tr>
+                    <th id="titre">
+                        Gaussiennes équilibrées
+                    </th>
+                    <th id="nom">
+                        CDU
+                    </th>
+                    <th id="date">
+                        28/10/2016
+                    </th>
+                </tr>
+            </table>
         </div>
     </section>
     <section id="temoignage">

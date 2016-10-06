@@ -1,8 +1,65 @@
+body * {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+}
 #bienvenue{
+    background-image: url("file:///var/www/html/web/sistr/images/bamboo-blured.jpg");
+    width: 100%;
+    height: auto;
+    background-size: cover;
+}
+#bienvenue h2{
+    color: white;
+    font-size: 4em;
+    text-transform: uppercase;
+    padding-top: 160px;
+    padding-bottom:80px ;
+    padding-left: 100px;
+}
+#derniers-suivis h3{
+    color: #3E3D88;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 80px;
+    margin-top: 80px;
+}
+#derniers-suivis > div{
+    position: relative;
+}
+#derniers-suivis table{
+    margin-bottom: 80px;
+    width: 90%;
+}
+
+.bordure{
+    border: 2px solid;
+    border-left: none;
+    border-right: none;
+    border-top: #DDDDDd;
+}
+#titre{
+    color: #AAAAAA;
+    font-weight: 400;
+    font-size: 1.5em;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px
+}
+#nom{
+    text-align: right;
+    padding-right: 20px;
+    font-size: 1.5em;
+    font-weight: 100;
+    color: #AAAAAA;
+    width: 100px;
 
 }
-#derniers-suivis{
-
+#date{
+    text-align: right;
+    padding-right: 0px;
+    font-size: 1.5em;
+    color: #AAAAAA;
 }
 #description{
 
@@ -12,6 +69,21 @@
 }
 #nav-accueil{
    background-color:  #3E3D88;
+   text-align: center;
+   line-height: 80px;
+   text-transform: uppercase;
+}
+#nav-accueil a{
+    color: white;
+    text-decoration: none;
+    font-size: 1.3em;
+}
+#nav-accueil li{
+    display: inline-block;
+}
+#nav-accueil li+li::before{
+    content: '|';
+    color: white;
 }
 #pied-de-page{
     background-color: #7A3466;
