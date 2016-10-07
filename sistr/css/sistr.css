@@ -4,10 +4,11 @@ body * {
     font-size: 14px;
 }
 #bienvenue{
-    background-image: url("file:///var/www/html/web/sistr/images/bamboo-blured.jpg");
+    background-image: url("../images/bamboo-blured.jpg");
     width: 100%;
     height: auto;
-    background-size: cover;
+    background-position: left bottom;
+    background-size: 100%;
 }
 #bienvenue h2{
     color: white;
@@ -24,12 +25,16 @@ body * {
     margin-bottom: 80px;
     margin-top: 80px;
 }
+
 #derniers-suivis > div{
     position: relative;
 }
 #derniers-suivis table{
-    margin-bottom: 80px;
+    margin:auto;
     width: 90%;
+}
+#derniers-suivis{
+    margin-bottom: 80px;
 }
 
 .bordure{
@@ -90,6 +95,25 @@ body * {
 }
 #temoignage{
     background-color: #9E593F;
+    color: white;
+    text-align: center;
+    padding-top:  80px;
+    padding-bottom: 80px;
+}
+#temoignage > div{
+    position: relative;
+}
+#temoignage p{
+    margin: auto;
+    width: 60%;
+    text-align: center;
+    font-size: 2em;
+    line-height: 1.5;
+
+}
+#temoignage i{
+    font-size: 4em;
+    margin-bottom: 20px;
 }
 .conteneur{
     width: 960px;
@@ -119,4 +143,12 @@ position: relative;
     position: absolute;
     right: 0px;
     top: 0px;
+}
+#connexion form{
+    margin-top: 20px;
+    border-left: 2px solid #3E3D88;;
+    padding-left: 40px;
+}
+.clear{
+    clear: both;
 }
