@@ -66,9 +66,7 @@ body * {
     font-size: 1.5em;
     color: #AAAAAA;
 }
-#description{
 
-}
 #header-accueil{
 
 }
@@ -89,9 +87,6 @@ body * {
 #nav-accueil li+li::before{
     content: '|';
     color: white;
-}
-#pied-de-page{
-    background-color: #7A3466;
 }
 #temoignage{
     background-color: #9E593F;
@@ -119,6 +114,7 @@ body * {
     width: 960px;
     margin-right: auto;
     margin-left: auto;
+    position: relative;
 }
 #header-accueil > div{
 position: relative;
@@ -151,4 +147,82 @@ position: relative;
 }
 .clear{
     clear: both;
+}
+#description{
+    padding-top: 80px;
+}
+#description i{
+    color: #692F7A;
+    font-size: 5em;
+}
+.notes{
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: #692F7A;
+}
+.infos{
+    margin-top: 20px;
+    font-size: 1.4em;
+    line-height: 180%;
+}
+div#colonne-gauche {
+    float: left;
+    width: 300px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+div#colonne-centre{
+    float: left;
+    width: 300px;
+    margin-right: 10px;
+    margin-left: 10px;
+
+
+ }
+div#colonne-droite{
+    float: left;
+    width: 300px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#description .conteneur div{
+    box-shadow: 0 0 1px rgba(0,0,0,0);
+    background-color: white;
+    transition: all 1s ease;
+    transition-property: box-shadow, background-color;
+}
+#description .conteneur div:hover{
+    background-color: #EEEEEE;
+    border-radius: 10px 10px;
+    box-shadow: 0 20px 10px -10px rgba(0,0,0,0.2);
+}
+#pied-de-page{
+    background-color: #7A3466;
+    margin-top: 80px;
+    padding-bottom: 80px;
+}
+#pied-de-page p{
+    padding-top: 40px;
+    color: white;
+    font-size: 1.2em;
+}
+.float{
+    float: left;
+    width: 300px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.float h6{
+    font-size: 1.2em;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    color: white;
+}
+
+.float a{
+    text-decoration: none;
+    color: white;
+    font-size: 0.8em;
+    line-height: 180%;
 }
