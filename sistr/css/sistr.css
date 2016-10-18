@@ -8,7 +8,7 @@ body * {
     width: 100%;
     height: auto;
     background-position: left bottom;
-    background-size: 100%;
+    background-size: cover;
 }
 #bienvenue h2{
     color: white;
