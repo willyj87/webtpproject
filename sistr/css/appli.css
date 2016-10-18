@@ -3,6 +3,42 @@ nav img{
     height: 100%;
 }
 .dropdown-menu{
-    color: white;
     background-color: black;
+}
+.dropdown-menu > li > a{
+    background-color: black;
+    color: white;
+}
+.test:not(.dropdown):hover{
+
+}
+.col-md-2 h1{
+    font-weight: bold;
+    size: 1.2em;
+    padding-top: 20px;
+}
+.col-md-2 a{
+    text-decoration: none;
+}
+.col-md-2 a:hover{
+    color: #337ab7;
+}
+.col-md-2 a:active{
+    color: #337ab7;
+}
+.col-md-10 h1 {
+    padding-top: 50px;
+    font-weight: bold;
+    size: 1.2em;
+}
+.liste{
+    border: none;
+    color: black;
+    font-weight: lighter;
+}
+#test{
+    padding-top: 30px;
+}
+.check {
+    color: inherit;
 }

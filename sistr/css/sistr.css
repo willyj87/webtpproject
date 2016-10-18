@@ -41,7 +41,7 @@ body * {
     border: 2px solid;
     border-left: none;
     border-right: none;
-    border-top: #DDDDDd;
+    border-top: #DDDDDD;
 }
 #titre{
     color: #AAAAAA;
@@ -84,9 +84,15 @@ body * {
 #nav-accueil li{
     display: inline-block;
 }
+#nav-accueil li:hover{
+    opacity: 0.5;
+}
 #nav-accueil li+li::before{
     content: '|';
+    font-size: 1.4em;
     color: white;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 #temoignage{
     background-color: #9E593F;
@@ -144,6 +150,9 @@ position: relative;
     margin-top: 20px;
     border-left: 2px solid #3E3D88;;
     padding-left: 40px;
+}
+#connexion button:hover{
+    opacity: 0.5;
 }
 .clear{
     clear: both;
