@@ -1,0 +1,58 @@
+body * {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+}
+.containeur{
+    width: 960px;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#header-accueil{
+    background-color: #242A4F;
+}
+.float{
+    float: right;
+    margin-right: 20px;
+}
+#nav{
+    padding: 5px;
+}
+#formulaire{
+    padding-top: 12.5px;
+}
+#formulaire i{
+    color: #00b3ee;
+}
+#header-accueil nav li{
+    display: inline-block;
+}
+#header-accueil nav li:hover{
+    background-color: #00b3ee;
+    transition: 2s;
+}
+#nav a{
+    text-decoration: none;
+    color: #5A6288;
+}
+#nav li{
+    border: 2px solid;
+    border-color: #5A6288;
+    padding: 20px;
+}
+.clear{
+    clear:both;
+}
+#formulaire input{
+    width: 50px;
+    transition: width 0.4s;
+}
+#formulaire input:hover{
+    width: 150px;
+    transition: width 0.8s;
+}
+main .containeur{
+    border-right: 2px solid #99979c;
+}

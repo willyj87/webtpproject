@@ -1,0 +1,25 @@
+#premier h1:nth-child(n+4){
+    background-color: red;
+}
+body h1{
+    border: solid 2px black;
+    padding: 20px;
+    margin: 2px;
+}
+#premier{
+    margin-top: 50px;
+}
+.clear {
+    clear: both;
+}
+.pere h1{
+    float: left;
+}
+.separateur{
+    border-bottom: solid 2px #f4eeea;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+#second:hover h1:nth-child(2n+1) {
+    background-color: red;
+}
