@@ -11,4 +11,5 @@ define('APPLICATION_PATH', ROOT_PATH.'/application');
 define('APPLICATION_NAMESPACE', 'Sistr');
 require_once 'framework/f3il.php';
 $app = \F3il\Application::getInstance(APPLICATION_PATH.'/configuration.ini');
+$app->setDefaultControllerName('utilisateur');
 $app->run();

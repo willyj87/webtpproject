@@ -6,17 +6,25 @@
  * Time: 22:43
  */
 namespace Sistr;
+defined("SISTR") or die("Access Denied");
 use F3il\Application;
 use F3il\Configuration;
+use F3il\Controller;
 use F3il\Page;
 
-class UtilisateurController{
+class UtilisateurController extends Controller{
+    public function __construct()
+    {
+        $this->setDefaultActionName('lister');
+    }
+
     public function listerAction(){
-        $page = Application::getPage();
+        $page = Page::getInstance();
         $page->setTemplate("template-a");
         $page->setView("vue1");
         $page->titre = "liste utilisateurs";
-        $page->name = "Willy";
+        $model = new UtilisateurModel();
+        $page->utilisateurs = $model->lister();
     }
     
 }

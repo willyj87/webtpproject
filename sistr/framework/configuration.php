@@ -7,7 +7,7 @@
  */
 
 namespace F3il;
-defined("F3IL") or die("Access Denied");
+defined('F3IL') or die('Access Denied');
 
 
 class Configuration
@@ -19,13 +19,14 @@ class Configuration
      * Configuration constructor.
      * @param $inifile
      */
-    private function __construct($inifile){
-        if(!is_readable($inifile))
-            die("Fichier de configuration pas lisible");
+    private function __construct($inifile)
+    {
+        if (!is_readable($inifile))
+            throw new Error("Fichier de configuration pas lisible");
         if (!parse_ini_file($inifile))
-            die("Configuration fausse");
+            throw new Error("Configuration fausse");
         $this->data = parse_ini_file($inifile);
-    }
+        }
 
     /**
      * Méthode de récupération de l'instance
@@ -33,10 +34,10 @@ class Configuration
      * @param $inifile: chemin du fichier INI de configuration
      * @return Configuration
      */
-    public static function getInstance($inifile){
-        if (!isset($inifile))
-            $inifile = "";
-        self::$conf = new Configuration($inifile);
+    public static function getInstance($inifile=""){
+        if(is_null(self::$conf)){
+            self::$conf = new Configuration($inifile);
+        }
         return self::$conf;
     }
 
@@ -50,6 +51,9 @@ class Configuration
     public function __get($name)
     {
         // TODO: Implement __get() method.
+        if (!isset($this->data[$name])){
+            throw new Error("pas de données de ce nom");
+        }
         return $this->data[$name];
     }
 
@@ -58,7 +62,12 @@ class Configuration
      * @return mixed
      */
     public static function isLoaded(){
-        return is_null(self::$conf);   
+        if (self::$conf == null){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
 }

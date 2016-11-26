@@ -10,6 +10,8 @@ defined('F3IL') or die('Access Denied');
 class Application{
     protected $controllerName;
     protected $actionName;
+    protected $conf;
+    protected $defaultControllerName;
     private static $app;
 
     /**
@@ -17,7 +19,7 @@ class Application{
      * @param $inifile
      */
     private function __construct($inifile){
-        $configuration = Configuration::getInstance($inifile);
+       $this->conf = Configuration::getInstance($inifile);
     }
 
     /**
@@ -36,19 +38,52 @@ class Application{
     }
 
     /**
+     * Vérifie et renseigne le controleur par défaut
+     * @param $defaultControllerName
+     * @throws Error
+     */
+    public function setDefaultControllerName($defaultControllerName)
+    {
+        $this->defaultControllerName = $defaultControllerName;
+        if (!is_readable(APPLICATION_PATH.'/controllers'.'/'.$this->defaultControllerName.'.controller.php'))
+            throw new Error("Le fichier controleur par défaut n'existe pas");
+
+    }
+
+    /**
      * Méthode principale d'exécution de l'application Web
      * - Analyse l'URL de la requête
      * - Route la requête vers l'action de contrôleur demandéé
      * - Affiche la page.
      */
     public function run(){
-        $this->controllerName = filter_input(INPUT_GET,'controller');
-        require_once APPLICATION_PATH.'/controllers'.'/'.$this->controllerName.'.controller.php';
+        if (filter_has_var(INPUT_GET,'controller')){
+            $this->controllerName = filter_input(INPUT_GET,'controller');
+        }
+        else{
+            $this->controllerName = $this->defaultControllerName;
+        }
+        if ($this->defaultControllerName = null){
+            throw  new Error("Le controleur par défaut n'est pas indiqué");
+        }
         $controllerClass = APPLICATION_NAMESPACE.'\\'.ucfirst($this->controllerName).'Controller';
         $controller = new $controllerClass;
-        $this->actionName = filter_input(INPUT_GET, 'action');
-        $actionMethod = $this->actionName.'Action';
-        $controller->$actionMethod();
+        if(!filter_has_var(INPUT_GET,$this->actionName)){
+            $this->actionName = filter_input(INPUT_GET, 'action');
+            $actionMethod = $this->actionName.'Action';
+            if($actionMethod == 'Action')
+                $actionMethod = $controller->getDefaultActionName().'Action';
+            if (!method_exists($controller,$actionMethod)) {
+                throw new ControllerError("Action non existante",$controllerClass,$actionMethod);
+            }
+            $controller->$actionMethod();
+        }
+        else{
+            if (($controller->getDefaultActionName()) == null){
+                throw new ControllerError("Pas de Classe Controleur par défaut",$controllerClass,$this->actionName);
+            }
+
+        }
         $page = Page::getInstance();
         $page->render();
     }

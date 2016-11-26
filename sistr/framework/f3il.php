@@ -13,7 +13,5 @@ if (defined('APPLICATION_PATH') == false)
     Die ('Access Denied');
 if (defined('APPLICATION_NAMESPACE')== false)
     Die ('Access Denied');
-require_once 'page.php';
-require_once 'application.php';
-require_once 'configuration.php';
-require_once 'error.php';
+require_once 'autoloader.php';
+AutoLoader::getInstance(APPLICATION_PATH,"Sistr");
