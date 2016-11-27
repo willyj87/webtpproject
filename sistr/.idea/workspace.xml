@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9c19a39-f4bc-467f-a4b5-c8bc96b221b4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/utilisateur.model.php" afterPath="$PROJECT_DIR$/application/models/utilisateur.model.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/templates/simple.template.php" afterPath="$PROJECT_DIR$/application/templates/simple.template.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/templates/template-a.template.php" afterPath="$PROJECT_DIR$/application/templates/template-a.template.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/templates/template-b.template.php" afterPath="$PROJECT_DIR$/application/templates/template-b.template.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/vue1.view.php" afterPath="$PROJECT_DIR$/application/views/vue1.view.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/framework/autoloader.php" afterPath="$PROJECT_DIR$/framework/autoloader.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/framework/page.php" afterPath="$PROJECT_DIR$/framework/page.php" />
     </list>
     <ignored path="sistr.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -388,7 +381,7 @@
       <workItem from="1479994904800" duration="39913000" />
       <workItem from="1480102397313" duration="3108000" />
       <workItem from="1480112198117" duration="7016000" />
-      <workItem from="1480156902512" duration="10087000" />
+      <workItem from="1480156902512" duration="10107000" />
     </task>
     <task id="LOCAL-00001" summary="test1">
       <created>1475585012723</created>
@@ -460,11 +453,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480161358632</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="27/11/16 Dmianche">
+      <created>1480251544786</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1480251544786</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="215620000" />
+    <option name="totallyTimeSpent" value="215640000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -520,7 +520,8 @@
     <MESSAGE value="18/10/16 Soirée web" />
     <MESSAGE value="24/10/16 jeudi" />
     <MESSAGE value="26/10/16 Samedi" />
-    <option name="LAST_COMMIT_MESSAGE" value="26/10/16 Samedi" />
+    <MESSAGE value="27/11/16 Dmianche" />
+    <option name="LAST_COMMIT_MESSAGE" value="27/11/16 Dmianche" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
