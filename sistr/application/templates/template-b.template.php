@@ -1,3 +1,9 @@
+<?php
+namespace Sistr;
+
+
+defined('SISTR') or die('Acces interdit');
+?>
 <!DOCTYPE>
 <html>
 <head>
@@ -32,6 +38,11 @@
             min-height: 80px;
         }
     </style>
+    <title>
+        <?php
+        $this->getPageTitle();
+        ?>
+    </title>
 </head>
 <body>
 <nav>Navigation</nav>

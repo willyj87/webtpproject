@@ -16,7 +16,7 @@ class UtilisateurModel
     public function lister() {
         $db = Database::getInstance();
 
-        $sql = "SELECT * FROM utilisateurs ORDER nom, prenom";
+        $sql = "SELECT * FROM utilisateurs ORDER BY nom, prenom";
         try {
             $req  = $db->prepare($sql);
             $req->execute();

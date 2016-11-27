@@ -12,6 +12,8 @@ class Page{
     protected $viewfile;
     protected $data = array();
     protected $pageparameter;
+    protected $pageTitle;
+    protected $viewHTML;
     private static $page;
 
     /**
@@ -32,6 +34,25 @@ class Page{
             self::$page = new Page();
         return self::$page;
     }
+
+    /**
+     * setteur du titre de la page
+     * @param $pageTitle
+     */
+    public function setPageTitle($pageTitle)
+    {
+        $this->pageTitle = $pageTitle;
+    }
+
+    /**
+     * getter du titre de la page
+     * @return mixed
+     */
+    public function getPageTitle()
+    {
+        return $this->pageTitle;
+    }
+    
     public function getParam(){
        // return $this->pageparameter;
     }

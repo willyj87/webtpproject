@@ -5,7 +5,12 @@
 <!DOCTYPE>
 <html>
     <head>
-        <meta charset="UTF-8">        
+        <meta charset="UTF-8">
+        <title>
+            <?php
+            $this->getPageTitle();
+            ?>
+        </title>
     </head>
     <body>        
         <h1>Template Simple</h1>

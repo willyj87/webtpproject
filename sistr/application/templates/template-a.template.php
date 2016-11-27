@@ -1,6 +1,6 @@
 <?php
     namespace Sistr;
-    defined('SISTR') or die('Acces interdit');
+defined('SISTR') or die('Acces interdit');
 ?>
 <!DOCTYPE>
 <html>
@@ -34,6 +34,11 @@
                 min-height: 400px;
             }
         </style>
+        <title>
+            <?php
+            $this->getPageTitle();
+            ?>
+        </title>
     </head>
     <body>
         <header>
