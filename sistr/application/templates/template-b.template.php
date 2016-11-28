@@ -1,7 +1,4 @@
 <?php
-namespace Sistr;
-
-
 defined('SISTR') or die('Acces interdit');
 ?>
 <!DOCTYPE>
@@ -39,9 +36,7 @@ defined('SISTR') or die('Acces interdit');
         }
     </style>
     <title>
-        <?php
-        $this->getPageTitle();
-        ?>
+        [%TITRE%]
     </title>
 </head>
 <body>
@@ -53,7 +48,7 @@ defined('SISTR') or die('Acces interdit');
 <main>
     <section>
         <!-- Afffichage de la vue -->
-        <?php $this->insertView(); ?>
+        [%STYLESHEETS%]
     </section>
 </main>
 <footer>

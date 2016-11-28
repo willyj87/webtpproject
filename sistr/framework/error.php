@@ -38,6 +38,7 @@ class Error extends \Exception
 
     public function __toString()
     {
+        ob_end_clean();
         // TODO: Implement __toString() method.
         if ($this->runMode == self::DEBUG) {
              $this->debugRender();

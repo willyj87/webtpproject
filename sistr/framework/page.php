@@ -14,6 +14,9 @@ class Page{
     protected $pageparameter;
     protected $pageTitle;
     protected $viewHTML;
+    protected $templateHTML;
+    protected $cssFile = array();
+    protected $baliseCSS;
     private static $page;
 
     /**
@@ -90,26 +93,25 @@ class Page{
         }
         return $this;
     }
-
-    /**
-     * Permet d'insérer la vue dans le template
-     */
-    private function insertView(){
-        require APPLICATION_PATH.'/views'.'/'.$this->viewfile.'.view.php';
-    }
     /**
      * Effectue le rendu du template et de la vue
      *
      */
     public function render(){
-        if(!isset($this->templatefile) && !isset($this->viewfile))
-            die("Non affecté (template)");
-        require APPLICATION_PATH.'/templates'.'/'.$this->templatefile.'.template.php';
-      /**  if(!isset($viewfile))
-            die("Non affecté (vue)");
-        require $viewfile;
 
-       * */
+        if(!isset($this->templatefile) && !isset($this->viewfile)){
+            die("Non affecté (template)");
+        }
+        ob_start();
+        require APPLICATION_PATH.'/views'.'/'.$this->viewfile.'.view.php';
+        $this->viewHTML = ob_get_clean();
+
+        ob_start();
+        require APPLICATION_PATH.'/templates'.'/'.$this->templatefile.'.template.php';
+        $this->templateHTML = ob_get_clean();
+
+       $this->viewHTML = preg_replace_callback('/\[%\w+\%]/is', array($this,'renderCallback'),$this->viewHTML);
+        echo preg_replace_callback('/\[%\w+\%]/is', array($this,'renderCallback'),$this->templateHTML);
     }
     /**
      * Getter pour les propriétés dynamiques de Page
@@ -147,6 +149,72 @@ class Page{
         // TODO: Implement __isset() method
         return  isset($this->data[$name]);
     }
+
+    /**
+     * Ajoute un fichier css à notre vue
+     * @param $cssFile
+     * @throws Error
+     */
+    public function addStyleSheets($cssFile){
+        if (!is_readable($cssFile))
+            throw new Error("Le fichier css indiquer n'existe pas");
+        if (!in_array($cssFile,$this->cssFile))
+            $this->cssFile[] = $cssFile;
+        else
+            return;
+    }
+    /**
+     * Méthode d'insertion des balises link pour les vues
+     */
+    public function insertStyleSheets(){
+        foreach ($this->cssFile as $value){
+            ob_start();
+            echo "<link rel = 'stylesheet' href = '".$value."'/>";
+            $this->baliseCSS = ob_get_clean();
+        }
+        return $this->baliseCSS;
+    }
+
+    /**
+     * Methode qui permet de récupérer le code html du Titre
+     * @return mixed
+     */
+    public function insertPageTitle(){
+        ob_start();
+        echo $this->getPageTitle();
+        $titre = ob_get_clean();
+        return $titre;
+        
+    }
+    /**
+     * Permet d'insérer la vue dans le template
+     */
+    private function insertView(){
+        return $this->viewHTML;
+    }
+
+    /**
+     * Methode permettant de faire des callback
+     * @param $matches
+     * @return string
+     */
+    public function renderCallback($matches){
+        $message = Messages::render();
+        switch ($matches[0]){
+            case '[%VIEW%]':
+                return $this->insertView();
+            case '[%STYLESHEETS%]':
+                return $this->insertStyleSheets();
+            case '[%TITRE%]':
+                return $this->insertPageTitle();
+            case '[%MESSAGES%]':
+                return $message;
+            default:
+                return 'lol';
+        }
+    }
+
+
 
 }
 
