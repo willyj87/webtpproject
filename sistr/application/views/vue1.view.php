@@ -4,7 +4,6 @@
     \F3il\Messages::setMessageRenderer('Sistr\MessagesHelper::messagesRenderer');
 ?>
 <div>
-    [%MESSAGES%]
     <h2>Vue 1</h2>
     <p><?php echo __FILE__."</br>";?></p>
     <p><?php echo $this->titre."</br>";?></p>

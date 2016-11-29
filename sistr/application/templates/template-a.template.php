@@ -6,7 +6,7 @@ defined('SISTR') or die('Acces interdit');
     <head>
         <meta charset="UTF-8">
         <title>
-            [%TITRE%]
+            [%TITLE%]
         </title>
         <style type="text/css">
             body * {

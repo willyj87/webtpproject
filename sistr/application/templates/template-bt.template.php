@@ -8,9 +8,8 @@
 <html>
     <head>
         <meta charset="UTF-8"/>
-        [%TITLE%]
-        <link href="vendors/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        [%STYLESHEETS%]
+        <title>[%TITLE%]</title>
+        <link rel="stylesheet" href= "vendors/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
     </head>
     <body>
         <div class="container">
@@ -36,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <script src="/vendors/jquery-3.1.1.js" type="text/javascript"></script>
-        <script src='/vendors/bootstrap/dist/js/bootstrap.min.js' type="text/javascript"></script>
+        <script src="vendors/jquery-3.1.1.js" type="text/javascript"></script>
+        <script src='vendors/bootstrap/dist/js/bootstrap.min.js' type="text/javascript"></script>
     </body>
 </html>

@@ -25,4 +25,18 @@ class UtilisateurModel
         }
         return $req->fetchAll(\PDO::FETCH_ASSOC);
     }
+    public function supprimer($id){
+        $db = Database::getInstance();
+
+        $sql = "DELETE * FROM utilisateurs WHERE id=:id";
+
+        try{
+            $req = $db->prepare($sql);
+            $req->bindValue(':id', $id, \PDO::PARAM_INT);
+            $req->execute();
+        } catch (\PDOException $ex) {
+            die('Erreur SQL '.$ex->getMessage());
+        }
+        echo "suppression effectué";
+    }
 }

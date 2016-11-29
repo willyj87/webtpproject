@@ -14,7 +14,7 @@ abstract class Messages
     const MESSAGE_SUCCESS = 0;
     const MESSAGE_WARNING = 1;
     const MESSAGE_ERROR = 2;
-    private static $_messages = array();
+    private static $_messages=array();
     private static $_renderer = '\F3il\Messages::defaultRenderer';
 
     /**
@@ -27,7 +27,7 @@ abstract class Messages
     {
         if (!($type>= 0 && $type<= 2))
             throw new Error("Message d'erreur de type inconnu");
-        self::$_messages[$type]= $message;
+        self::$_messages = array(array('type'=>$type,'message'=>$message));
     }
 
     /**
@@ -49,7 +49,7 @@ abstract class Messages
     {
         if (!isset(self::$_messages[$num]))
             throw new Error("Message demandé incorrect");
-        return self::$_messages;
+        return self::$_messages[$num];
     }
 
     /**
@@ -78,22 +78,23 @@ abstract class Messages
      */
     public static function defaultRenderer()
     {
-        foreach (self::$_messages as $type=>$message){
-            $type = 'type';
-            if ($type == self::MESSAGE_SUCCESS)
-            {
-                echo "<div>"."Success : ".$message."</div>";
-            }
-            if ($type == self::MESSAGE_ERROR)
-            {
+        foreach (self::$_messages as $message){
 
-                echo '<div>'.'Error : '.$message.'</div>';
-            }
-            if ($type == self::MESSAGE_WARNING)
+            if ($message['type'] == self::MESSAGE_SUCCESS)
             {
-                echo '<div>'.'Warning : '.$message.'</div>';
+                    echo "<div>"."Success : ".$message['message']."</div>";
+            }
+            if ($message['type'] == self::MESSAGE_ERROR)
+            {
+                echo "<div>"."Error : ".$message['message']."</div>";
+            }
+
+            if ($message['type'] == self::MESSAGE_WARNING)
+            {
+                    echo "<div>"."Warning : ".$message['message']."</div>";
             }
         }
+        print_r(self::$_messages);
     }
 
 }

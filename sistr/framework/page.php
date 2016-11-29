@@ -169,7 +169,7 @@ class Page{
     public function insertStyleSheets(){
         foreach ($this->cssFile as $value){
             ob_start();
-            echo "<link rel = 'stylesheet' href = '".$value."'/>";
+            echo "<link rel='stylesheet' href = '".$value."'/>";
             $this->baliseCSS = ob_get_clean();
         }
         return $this->baliseCSS;
@@ -205,7 +205,7 @@ class Page{
                 return $this->insertView();
             case '[%STYLESHEETS%]':
                 return $this->insertStyleSheets();
-            case '[%TITRE%]':
+            case '[%TITLE%]':
                 return $this->insertPageTitle();
             case '[%MESSAGES%]':
                 return $message;
