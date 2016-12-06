@@ -6,6 +6,7 @@
  * Time: 11:23
  */
 namespace F3il;
+session_start();
 define('F3IL','');
 if(defined('ROOT_PATH') == false)
     Die ('Access Denied');
@@ -14,4 +15,4 @@ if (defined('APPLICATION_PATH') == false)
 if (defined('APPLICATION_NAMESPACE')== false)
     Die ('Access Denied');
 require_once 'autoloader.php';
-AutoLoader::getInstance(APPLICATION_PATH,"Sistr");
+AutoLoader::getInstance(APPLICATION_PATH,APPLICATION_NAMESPACE);

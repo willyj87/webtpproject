@@ -11,7 +11,9 @@ use F3il\Application;
 use F3il\Configuration;
 use F3il\Controller;
 use F3il\Error;
+use F3il\HttpHelper;
 use F3il\Messages;
+use F3il\Messenger;
 use F3il\Page;
 
 class UtilisateurController extends Controller{
@@ -26,6 +28,10 @@ class UtilisateurController extends Controller{
         $page->setView("utilisateur-liste");
         $model = new UtilisateurModel();
         $page->utilisateurs = $model->lister();
+        $message = Messenger::getMessage();
+        if($message!=false)
+            Messages::addMessage($message,0);
+
     }
     public function editerAction(){
         echo __METHOD__;
@@ -38,7 +44,9 @@ class UtilisateurController extends Controller{
         $modelsupprimer = new UtilisateurModel();
         $id = $_POST['id'];
         $modelsupprimer->supprimer($id);
-        die("Supprimé");
+        Messenger::setMessage('Suppression éffectué');
+        HttpHelper::redirect('?controller=utilisateur&action=lister');
+
     }
     
     
