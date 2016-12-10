@@ -15,6 +15,7 @@ use F3il\HttpHelper;
 use F3il\Messages;
 use F3il\Messenger;
 use F3il\Page;
+use F3il\Form;
 
 class UtilisateurController extends Controller{
     public function __construct()
@@ -48,6 +49,26 @@ class UtilisateurController extends Controller{
         HttpHelper::redirect('?controller=utilisateur&action=lister');
 
     }
-    
-    
+
+    /**
+     * Acion formulaire pour  la création utilisateur
+     * @throws Error
+     */
+    public function creerAction(){
+        $page = Page::getInstance();
+        $page->setTemplate('template-bt');
+        $page->setView('form');
+        $test = new UtilisateurForm('?controller=utilisateur&action=creer');
+        $test->id = 0;
+        $page->testform = $test;
+        if ($test->isSubmitted()==false){
+            return;
+        }
+        $page->testform->loadData(INPUT_POST);
+        $valid = $test->isValid();
+        if ($valid == false){
+            $page->val = "Formulaire non valide";
+            return;
+        }
+    }
 }

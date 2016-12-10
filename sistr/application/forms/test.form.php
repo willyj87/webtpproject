@@ -23,19 +23,18 @@ class TestForm extends Form
      */
     public function __construct($action)
     {
-        parent::__construct($this->_action = $action);
+        parent::__construct($this->_action = $action,'test-form');
         Form::addFormField($email = new Field('email', 'Email', null, true));
         Form::addFormField($age = new Field('age', 'Age'));
-        Form::addFormField($taille = new Field('Taille', 'taille'));
     }
 
     /**
-     * @param $data
+     * @param $value
      * @return mixed
      */
-    public function ageFilter($data){
+    public function ageFilter($value){
         //die('lala');
-        return filter_var($data, FILTER_SANITIZE_STRING);
+        return filter_var($value, FILTER_SANITIZE_STRING);
     }
 
     /**

@@ -17,18 +17,24 @@ defined('SISTR') or die('Access Denied');
 
 class FormController extends Controller
 {
+    /**
+     * @throws \F3il\Error
+     */
     function formAction(){
         $page = Page::getInstance();
         $page->setTemplate('template-bt');
         $page->setView('form');
         $test = new TestForm('?controller=form&action=form');
         $page->testform = $test;
+        if ($test->isSubmitted()==false){
+            return;
+        }
         $page->testform->loadData(INPUT_POST);
         $valid = $test->isValid();
-        if ($valid == true)
-            $page->val = "Validé";
-        else
-            $page->val = "non Validé";
-
+        if ($valid == false){
+            $page->val = "Formulaire non valide";
+            return;
+        }
+        $page->dataForm = $test->getData();
     }
 }

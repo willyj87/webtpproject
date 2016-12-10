@@ -17,13 +17,16 @@ abstract class Form
     protected $_field = array();
     protected $_action;
     protected $_missingFile = array();
+    private $_formId;
 
     /**
      * Form constructor.
      * @param $action
+     * @param $formId
      */
-    public function __construct($action)
-    {   
+    public function __construct($action,$formId)
+    {
+        $this->_formId = $formId;
         $this->_action = $action;
         $this->getHtmlFile();
     }
@@ -33,8 +36,12 @@ abstract class Form
      */
     public function render(){
         require $this->_html;
+        $this->insertFormId();
     }
 
+    /**
+     * @return mixed
+     */
     public function getAction()
     {
         return $this->_action;
@@ -52,11 +59,33 @@ abstract class Form
         $method = substr($racine,0,$final);
         $finalM = strtolower($method);
         $this->_html = APPLICATION_PATH.'/forms/html/'.$finalM.'.form-html.php';
-        if(!is_readable($this->_html))
+        if(!is_readable($this->_html)){
             throw new Error("Fichier formulaire non lisible");
+        }
+        if (file_get_contents($this->_html,$this->_formId) === false){
+            throw new Error('Absence de _formId dans le formulaire');
+        }
         return $this->_html;
     }
 
+    /**
+     * insère une balise input avec le champ caché formID
+     */
+    function insertFormId(){
+        echo "<input type='hidden' name= '".$this->_formId."' value='1' form='".$this->_formId."'>";
+    }
+
+    /**
+     * @return bool
+     */
+    function isSubmitted(){
+        if (filter_input(INPUT_SERVER,'REQUEST_METHOD')== 'POST' && filter_input(INPUT_POST,$this->_formId) == 1){
+            $valid = true;
+        }
+        else
+            $valid = false;
+        return $valid;
+    }
     /**
      * @param Field $field
      * @throws Error
@@ -72,10 +101,10 @@ abstract class Form
      * @throws Error
      */
     function fLabel($fieldName){
-        if (!in_array($fieldName,$this->_field)){
+        if (!array_key_exists($fieldName,$this->_field)){
             throw new Error('Champ de formulaire absent');
         }
-        echo $fieldName->label;
+        echo $this->_field[$fieldName]->label;
     }
 
     /**
@@ -83,10 +112,10 @@ abstract class Form
      * @throws Error
      */
     function fName($fieldName){
-        if (!in_array($fieldName,$this->_field)){
+        if (!array_key_exists($fieldName,$this->_field)){
             throw new Error('Champ de formulaire absent');
         }
-        echo $fieldName->name;
+        echo $this->_field[$fieldName]->name;
     }
 
     /**
@@ -94,12 +123,12 @@ abstract class Form
      * @throws Error
      */
     function fValue($fieldName){
-        if (!in_array($fieldName,$this->_field)){
+        if (!array_key_exists($fieldName,$this->_field)){
             throw new Error('Champ de formulaire absent');
         }
          if($fieldName->value == null)
-             echo $fieldName->defaultValue;
-        echo $fieldName->value;
+             echo $this->_field[$fieldName]->defaultValue;
+        echo $this->_field[$fieldName]->value;
     }
 
     /**
@@ -172,7 +201,7 @@ abstract class Form
                 $valid = false;
                 $data->message[] = $this->missingFieldMessageRenderer($data);
             }
-            if (trim($data->name) != '' ||  $data->required == true){
+            if (trim($data->name) != null ||  $data->required == true){
                 $validator = str_replace('-','',lcfirst((ucwords($data->name,'-')))).'Validator';
                 if (method_exists($this,$validator))
                     $valid = $this->$validator($data->value) && $valid;
@@ -188,7 +217,7 @@ abstract class Form
      */
     function addMessage($fieldName,$message){
         if (!array_key_exists($fieldName,$this->_field))
-            throw new Error('fieldname non défini');
+            throw new Error('fieldname non défini (Form::addMessage)');
         $this->_field[$fieldName]->message[] = $message;
     }
 
@@ -208,7 +237,7 @@ abstract class Form
      * @param $message
      */
     function messageRenderer($message){
-        echo '<p>'.$message.'</p>';
+        return '<p>'.$message.'</p>';
     }
 
     /**
@@ -231,6 +260,60 @@ abstract class Form
     function missingFieldMessageRenderer(Field $field){
         if(in_array($field->name,$this->_missingFile))
             return 'Le champ '.strtolower($field->label).' est manquant';
+    }
+
+    /**
+     * @return mixed
+     */
+    function getData(){
+        foreach ($this->_field as $data)
+            $tabField[$data->name] = $data->value;
+        return $tabField;
+    }
+
+    /**
+     * @param $fieldName
+     * @return mixed
+     * @throws Error
+     */
+    function __get($fieldName)
+    {// TODO: Implement __get() method.
+        if (!array_key_exists($fieldName,$this->_field))
+            throw new Error('fieldname non défini (Form::_get)');
+        return $this->_field[$fieldName]->value;
+    }
+
+    /**
+     * @param $fieldName
+     * @return bool
+     */
+    function __isset($fieldName)
+    {
+        // TODO: Implement __isset() method.
+        return  isset($this->_field[$fieldName]);
+
+    }
+
+    /**
+     * @param $fieldName
+     * @param $value
+     */
+    function __set($fieldName, $value)
+    {
+        // TODO: Implement __set() method.
+        $this->_field[$fieldName]->value = $value;
+    }
+
+    /**
+     * @param $fieldName
+     * @return mixed
+     * @throws Error
+     */
+    public function getField($fieldName)
+    {
+        if (!array_key_exists($fieldName,$this->_field))
+            throw new Error('fieldname non défini (Form::getField)');
+        return $this->_field[$fieldName];
     }
 
 }

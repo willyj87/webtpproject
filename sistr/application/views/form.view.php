@@ -19,4 +19,3 @@ $this->setPageTitle("Form test");
 ?>
 
 <pre><?php print_r($this->testform)?></pre>
-

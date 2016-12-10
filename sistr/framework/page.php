@@ -100,7 +100,7 @@ class Page{
     public function render(){
 
         if(!isset($this->templatefile) && !isset($this->viewfile)){
-            die("Non affecté (template)");
+            throw new Error("Non affecté (template)");
         }
         ob_start();
         require APPLICATION_PATH.'/views'.'/'.$this->viewfile.'.view.php';
@@ -210,7 +210,7 @@ class Page{
             case '[%MESSAGES%]':
                 return $message;
             default:
-                return 'lol';
+                return 'Default';
         }
     }
 

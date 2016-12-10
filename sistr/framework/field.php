@@ -18,7 +18,14 @@ class Field
     public $defaultValue;
     public $message = array();
 
-    function __construct($name, $label,$defaultValue = null,$required = false)
+    /**
+     * Field constructor.
+     * @param $name
+     * @param $label
+     * @param null $defaultValue
+     * @param bool $required
+     */
+    function __construct($name, $label, $defaultValue = null, $required = false)
     {
         $this->name = $name;
         $this->label = $label;
@@ -26,10 +33,17 @@ class Field
         $this->required = $required;
         
     }
+
+    /**
+     * @param $message
+     */
     function addMessage($message){
         $this->message[] = $message;
     }
 
+    /**
+     * @return array
+     */
     public function getMessage()
     {
         return $this->message;
