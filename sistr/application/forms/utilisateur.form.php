@@ -102,10 +102,15 @@ class UtilisateurForm extends Form
      * @throws Error
      */
     function loginValidator($value){
-        if (strlen($value) < 6)
-            $this->addMessage('login','login trop cours');
-        else
+        $loginValidator = new UtilisateurModel();
+        if (strlen($value) < 6){
+            $this->addMessage('login',$value.' login trop cours');
+        }elseif ($loginValidator->loginExistant($this->login, $this->id) == true){
+            $this->addMessage('login','Ce login existe déjà veuillez en choisir un autre');
+        }
+        else{
             return $value;
+        }
     }
 
     /**
@@ -126,8 +131,10 @@ class UtilisateurForm extends Form
      * @throws Error
      */
     function emailValidator($value){
-        if (!filter_var($value,FILTER_VALIDATE_EMAIL))
-            $this->addMessage('email','Entrez une adresse mail valide');
+        if (!filter_var($value,FILTER_VALIDATE_EMAIL)){
+            $this->addMessage('email',' Entrez une adresse mail valide');
+        }
+
         else
             return $value;
     }
@@ -142,6 +149,20 @@ class UtilisateurForm extends Form
             $this->addMessage('confirmation','Non identique au mot de passe');
         else
             return $value;
+    }
+
+    /**
+     * @return bool
+     */
+    function isValid()
+    {
+        $valid = parent::isValid();
+        if($this->id == 0)
+            return $valid;
+        if ($this->motdepasse != '' && $this->confirmation ==''){
+            $valid = $this->confirmationValidator($this->confirmation) && $valid;
+        }
+        return $valid;
     }
 
 

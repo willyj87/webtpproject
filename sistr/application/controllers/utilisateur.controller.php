@@ -34,10 +34,38 @@ class UtilisateurController extends Controller{
             Messages::addMessage($message,0);
 
     }
+
+    /**
+     * @throws Error
+     */
     public function editerAction(){
-        echo __METHOD__;
-        print_r($_POST);
-        die('ok');
+        $page = Page::getInstance();
+        $listeModel = new UtilisateurModel();
+        $page->setTemplate('template-bt');
+        $page->setView('form');
+        $test = new UtilisateurForm('?controller=utilisateur&action=editer');
+        $id = $_POST['id'];
+        $page->testform = $test;
+        $conf = $test->getField('confirmation');
+        $conf->required = false;
+        $mdp = $test->getField('motdepasse');
+        $mdp->required = false;
+        $model = $listeModel->lire($id);
+        if ($test->isSubmitted() == false){
+            $page->testform->loadData($model);
+            $test->motdepasse = '';
+            $test->confirmation = '';
+            return;
+        }
+        $page->testform->loadData(INPUT_POST);
+        $valid = $page->testform->isValid();
+        if ($valid == false) {
+            return;
+        }
+        $data = $test->getData();
+        $listeModel->mettreAJour($data);
+        Messenger::setMessage("les données de l'utilisateur ".$data['nom']." ".$data['prenom']." ont bien été modifié");
+        HttpHelper::redirect('?controller=utilisateur&action=lister');
     }
     public function supprimerAction(){
         if(!filter_input(INPUT_POST,'id',FILTER_VALIDATE_INT) or filter_input(INPUT_POST,'id',FILTER_VALIDATE_INT) == null)
@@ -47,7 +75,6 @@ class UtilisateurController extends Controller{
         $modelsupprimer->supprimer($id);
         Messenger::setMessage('Suppression éffectué');
         HttpHelper::redirect('?controller=utilisateur&action=lister');
-
     }
 
     /**
@@ -56,6 +83,7 @@ class UtilisateurController extends Controller{
      */
     public function creerAction(){
         $page = Page::getInstance();
+        $creerModel = new UtilisateurModel();
         $page->setTemplate('template-bt');
         $page->setView('form');
         $test = new UtilisateurForm('?controller=utilisateur&action=creer');
@@ -67,8 +95,12 @@ class UtilisateurController extends Controller{
         $page->testform->loadData(INPUT_POST);
         $valid = $test->isValid();
         if ($valid == false){
-            $page->val = "Formulaire non valide";
             return;
         }
+        $data = $test->getData();
+        if (key($data) != 'id' || key($data) != 'creation')
+            $creerModel->creer($data);
+        Messenger::setMessage("L'utilisateur ".$data['nom']." ".$data['prenom']." a bien été enregistré");
+        HttpHelper::redirect('?controller=utilisateur&action=lister');
     }
 }

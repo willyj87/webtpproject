@@ -95,7 +95,6 @@ abstract class Form
             throw new Error('Champ de formulaire déjà existant');
         $this->_field[$field->name]= $field;
     }
-
     /**
      * @param $fieldName
      * @throws Error
@@ -106,7 +105,6 @@ abstract class Form
         }
         echo $this->_field[$fieldName]->label;
     }
-
     /**
      * @param $fieldName
      * @throws Error
@@ -126,7 +124,7 @@ abstract class Form
         if (!array_key_exists($fieldName,$this->_field)){
             throw new Error('Champ de formulaire absent');
         }
-         if($fieldName->value == null)
+         if($this->_field[$fieldName]->value == null)
              echo $this->_field[$fieldName]->defaultValue;
         echo $this->_field[$fieldName]->value;
     }
@@ -137,17 +135,15 @@ abstract class Form
     private function loadFromArray($source){
         foreach ($this->_field as $data){
             if(array_key_exists($data->name,$source)){
-                if(trim($data->value) != '') {
-                    $data->value = filter_var($source['value']);
+                if($source[$data->name] != null) {
+                    $data->value = filter_var($source[$data->name]);
                 }
-                else
-                    if($data->required == true and $data->value == '')
+                elseif($data->required == true and $data->value == ''){
                     $this->_missingFile[$data->name] = $data->name;
+                }
             }
-            $data->name = $this->applyFilter($data->name,$data->value);
+            $data->value = $this->applyFilter($data->name,$data->value);
         }
-
-
     }
 
     /**
@@ -201,10 +197,12 @@ abstract class Form
                 $valid = false;
                 $data->message[] = $this->missingFieldMessageRenderer($data);
             }
-            if (trim($data->name) != null ||  $data->required == true){
+            if (trim($data->value) != null ||  $data->required == true){
                 $validator = str_replace('-','',lcfirst((ucwords($data->name,'-')))).'Validator';
-                if (method_exists($this,$validator))
+                if (method_exists($this,$validator)){
                     $valid = $this->$validator($data->value) && $valid;
+                }
+
             }
         }
         return $valid;
@@ -290,7 +288,7 @@ abstract class Form
     function __isset($fieldName)
     {
         // TODO: Implement __isset() method.
-        return  isset($this->_field[$fieldName]);
+        return  isset($this->_field[$fieldName]->value);
 
     }
 
