@@ -12,15 +12,17 @@ use Sistr\FormHelper;
 
 defined('SISTR') or die('Access Denied');
 ?>
-<form id="utilisateur-form" method="POST" action="<?php echo $this->getAction();?>" class="form-horizontal">
+<div class="col-sm-10">
+<div class="form-group">
+
+    <form id="utilisateur-form" method="POST" action="<?php echo $this->getAction();?>" class="form-horizontal">
     <?php FormHelper::input($this,'nom','text');?>
     <?php FormHelper::input($this,'prenom','text');?>
     <?php FormHelper::input($this,'login','text');?>
     <?php FormHelper::input($this,'email','text');?>
     <?php FormHelper::input($this,'motdepasse','text');?>
     <?php FormHelper::input($this,'confirmation','text');?>
-    <div class="form-group">
-        <div class="col-sm-10">
+        <?php CsrfHelper::csrf();?>
             <input type="hidden" value="<?php $this->fValue('id');?>" class="form-control" id="<?php $this->fName('id')?>" name="<?php $this->fName('id')?>">
         </div>
     </div>

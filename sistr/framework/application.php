@@ -33,9 +33,6 @@ class Application{
             self::$app = new Application($inifile);
         return self::$app;
     }
-    public function getParam(){
-       // return $this->application;
-    }
 
     /**
      * Vérifie et renseigne le controleur par défaut
@@ -105,4 +102,34 @@ class Application{
     public static function getConfiguration(){
         return Configuration::getInstance();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getControllerName()
+    {
+        return $this->controllerName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActionName()
+    {
+        return $this->actionName;
+    }
+
+    /**
+     *
+     */
+    function getCurrentLocation(){
+     return array('controller'=>$this->getControllerName(), 'action'=>$this->getActionName());
+    }
+    function setAuthenticationDelgate($className)
+    {
+        $class = APPLICATION_NAMESPACE . '\\' . $className;
+        $objet = new $class;
+        Authentication::getInstance($objet);
+    }
+
 }

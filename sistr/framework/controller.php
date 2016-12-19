@@ -36,4 +36,14 @@ abstract class Controller
     {
         return $this->defaultActionName;
     }
+    public function redirectAuthenticated($redirect){
+        $auth = Authentication::getInstance();
+        if ($auth->isLoggedIn() == true)
+            HttpHelper::redirect($redirect);
+    }
+    public function redirectUnauthenticated($redirect){
+        $auth = Authentication::getInstance();
+        if ($auth->isLoggedIn() == false)
+            HttpHelper::redirect($redirect);
+    }
 }

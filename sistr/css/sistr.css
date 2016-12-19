@@ -235,3 +235,7 @@ div#colonne-droite{
     font-size: 0.8em;
     line-height: 180%;
 }
+#val-msg{
+    position: absolute;
+    top: 0px;
+}

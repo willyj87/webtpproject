@@ -9,9 +9,11 @@
 namespace Sistr;
 defined('SISTR') or die("Access Denied");
 
+use F3il\Authentication;
+use F3il\AuthenticationInterface;
 use F3il\Database;
 
-class UtilisateurModel
+class UtilisateurModel implements AuthenticationInterface
 {
     public function lister() {
         $db = Database::getInstance();
@@ -47,7 +49,8 @@ class UtilisateurModel
     public function creer($data){
         $sqlTime = date('Y-m-d H:i:s');
         $db = Database::getInstance();
-
+        $auth = Authentication::getInstance();
+        $mdp = $auth->hash($data['motdepasse'],$sqlTime);
         $sql = "INSERT INTO utilisateurs SET nom=:nom, prenom=:prenom, login=:login, email=:email, motdepasse=:mdp, creation=:creation ";
         try {
             $req = $db->prepare($sql);
@@ -55,7 +58,7 @@ class UtilisateurModel
             $req->bindValue(':prenom', $data['prenom']);
             $req->bindValue(':login', $data['login']);
             $req->bindValue(':email', $data['email']);
-            $req->bindValue(':mdp', $data['motdepasse']);
+            $req->bindValue(':mdp', $mdp);
             $req->bindValue(':creation', $sqlTime);
             $req->execute();
         } catch (PDOException $ex) {
@@ -117,7 +120,10 @@ class UtilisateurModel
     }
     public function mettreAJour($data){
         $db = Database::getInstance();
-        
+        $auth = Authentication::getInstance();
+        $lecture = $this->lire($data['id']);
+        $time = $lecture['creation'];
+        $mdp = $auth->hash($data['motdepasse'],$time);
         if ($data['motdepasse'] == ''){
             $sql = "UPDATE utilisateurs SET nom=:nom,prenom=:prenom,login=:login,email=:email WHERE id=:id";
             try{
@@ -133,6 +139,7 @@ class UtilisateurModel
             }
         }
         else {
+
             $sql = "UPDATE utilisateurs SET nom=:nom,prenom=:prenom,login=:login,email=:email,motdepasse=:motdepasse WHERE id=:id";
             try {
                 $req = $db->prepare($sql);
@@ -141,7 +148,7 @@ class UtilisateurModel
                 $req->bindValue(':prenom', $data['prenom']);
                 $req->bindValue(':login', $data['login']);
                 $req->bindValue(':email', $data['email']);
-                $req->bindValue(':motdepasse', $data['motdepasse']);
+                $req->bindValue(':motdepasse', $mdp);
                 $req->execute();
             } catch (\PDOException $ex) {
                 die('Erreur SQL ' . $ex->getMessage());
@@ -149,5 +156,55 @@ class UtilisateurModel
         }
         
     }
-    
+    public function auth_getLoginKey()
+    {
+        // TODO: Implement auth_getLoginKey() method.
+        return 'login';
+    }
+    public function auth_getPasswordKey()
+    {
+        // TODO: Implement auth_getPasswordKey() method.
+        return 'motdepasse';
+    }
+    public function auth_getUserById($id)
+    {
+        // TODO: Implement auth_getUserById() method.
+        return $this->lire($id);
+    }
+    public function auth_getUserByLogin($login)
+    {
+        // TODO: Implement auth_getUserByLogin() method.
+        $db = Database::getInstance();
+
+        $sql = "SELECT * FROM utilisateurs WHERE login=:login";
+        try{
+            $req = $db->prepare($sql);
+            $req->bindValue(':login',$login);
+            $req->execute();
+        }catch (\PDOException $ex){
+            die('Erreur SQL '.$ex->getMessage());
+        }
+        return $req->fetch(\PDO::FETCH_ASSOC);
+    }
+    public function auth_getUserIdKey()
+    {
+        // TODO: Implement auth_getUserIdKey() method.
+        return 'id';
+    }
+    public function auth_getSalt($user)
+    {
+        // TODO: Implement auth_getSalt() method.
+        $db = Database::getInstance();
+
+        $sql = "SELECT creation FROM utilisateurs WHERE id=:id";
+        try{
+            $req = $db->prepare($sql);
+            $req->bindValue(':id',$user['id']);
+            $req->execute();
+        }catch (\PDOException $ex){
+            die('Erreur SQL '.$ex->getMessage());
+        }
+        return $req->fetch(\PDO::FETCH_ASSOC);
+    }
+
 }

@@ -8,6 +8,7 @@
 namespace Sistr;
 defined("SISTR") or die("Access Denied");
 use F3il\Application;
+use F3il\Authentication;
 use F3il\Configuration;
 use F3il\Controller;
 use F3il\Error;
@@ -18,14 +19,16 @@ use F3il\Page;
 use F3il\Form;
 
 class UtilisateurController extends Controller{
+
     public function __construct()
-    {
+    {   
+        $this->redirectUnauthenticated('?controller=index&action=index');
         $this->setDefaultActionName('lister');
     }
 
     public function listerAction(){
         $page = Page::getInstance();
-        $page->setTemplate("template-bt");
+        $page->setTemplate("application");
         $page->setView("utilisateur-liste");
         $model = new UtilisateurModel();
         $page->utilisateurs = $model->lister();
@@ -41,7 +44,7 @@ class UtilisateurController extends Controller{
     public function editerAction(){
         $page = Page::getInstance();
         $listeModel = new UtilisateurModel();
-        $page->setTemplate('template-bt');
+        $page->setTemplate('application');
         $page->setView('form');
         $test = new UtilisateurForm('?controller=utilisateur&action=editer');
         $id = $_POST['id'];
@@ -60,6 +63,11 @@ class UtilisateurController extends Controller{
         $page->testform->loadData(INPUT_POST);
         $valid = $page->testform->isValid();
         if ($valid == false) {
+            return;
+        }
+        $token = CsrfHelper::checkToken();
+        if ($token == false){
+            $page->message = 'Donnée de formulaire refusé';
             return;
         }
         $data = $test->getData();
@@ -84,7 +92,7 @@ class UtilisateurController extends Controller{
     public function creerAction(){
         $page = Page::getInstance();
         $creerModel = new UtilisateurModel();
-        $page->setTemplate('template-bt');
+        $page->setTemplate('application');
         $page->setView('form');
         $test = new UtilisateurForm('?controller=utilisateur&action=creer');
         $test->id = 0;
@@ -101,6 +109,11 @@ class UtilisateurController extends Controller{
         if (key($data) != 'id' || key($data) != 'creation')
             $creerModel->creer($data);
         Messenger::setMessage("L'utilisateur ".$data['nom']." ".$data['prenom']." a bien été enregistré");
+        HttpHelper::redirect('?controller=utilisateur&action=lister');
+    }
+    public function deconnecterAction(){
+        $auth = Authentication::getInstance();
+        $auth->logout();
         HttpHelper::redirect('?controller=utilisateur&action=lister');
     }
 }

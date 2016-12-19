@@ -80,11 +80,11 @@ abstract class Form
      */
     function isSubmitted(){
         if (filter_input(INPUT_SERVER,'REQUEST_METHOD')== 'POST' && filter_input(INPUT_POST,$this->_formId) == 1){
-            $valid = true;
+            return  true;
         }
-        else
-            $valid = false;
-        return $valid;
+        else{
+           return false;
+        }
     }
     /**
      * @param Field $field

@@ -18,7 +18,7 @@ abstract class Messages
     private static $_renderer = '\F3il\Messages::defaultRenderer';
 
     /**
-     * ajout d'un messag dans le tableau $_message
+     * ajout d'un message dans le tableau $_message
      * @param $message
      * @param $type
      * @throws Error
@@ -74,7 +74,7 @@ abstract class Messages
     }
 
     /**
-     *
+     *Methode de rendu du message d'erreur
      */
     public static function defaultRenderer()
     {
@@ -94,7 +94,6 @@ abstract class Messages
                     echo "<div>"."Warning : ".$message['message']."</div>";
             }
         }
-        print_r(self::$_messages);
     }
 
 }

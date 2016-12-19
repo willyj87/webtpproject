@@ -18,4 +18,4 @@ $this->setPageTitle("Form test");
     $this->testform->render();
 ?>
 
-<pre><?php print_r($this->testform)?></pre>
+<pre><?php print_r($_SESSION)?></pre>

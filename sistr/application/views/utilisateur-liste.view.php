@@ -9,11 +9,11 @@ namespace Sistr;
 defined("SISTR") or die("Access Denied");
 ?>
 <h2>Liste des Utilisateurs</h2>
-    <div>
+    <div class="col-md-10">
         <a href="?controller=utilisateur&action=creer">
             <button class="btn bnt-primary">Nouvel utilisateur</button>
         </a>
-    </div>
+
     <table class="table table-bordered table-condensed table-striped table-hover">
         <thead>
             <tr>
@@ -83,6 +83,7 @@ defined("SISTR") or die("Access Denied");
                 ?>
         </tbody>
     </table>
+    </div>
     <form id="delete-form" action="/web/sistr/index.php?controller=utilisateur&action=supprimer" method="POST">
                 
     </form>
