@@ -10,9 +10,10 @@ use F3il\Authentication;
 use F3il\Controller;
 use F3il\Messages;
 use F3il\Page;
+use F3il\HttpHelper;
 
 defined('SISTR') or die('Acces Denied');
-use F3il\HttpHelper;
+
 
 class IndexController extends Controller
 {
