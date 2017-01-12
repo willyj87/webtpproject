@@ -109,7 +109,7 @@ class UtilisateurController extends Controller{
         if (key($data) != 'id' || key($data) != 'creation')
             $creerModel->creer($data);
         Messenger::setMessage("L'utilisateur ".$data['nom']." ".$data['prenom']." a bien été enregistré");
-        HttpHelper::redirect('?controller=utilisateur&action=lister');
+        //HttpHelper::redirect('?controller=utilisateur&action=lister');
     }
     public function deconnecterAction(){
         $auth = Authentication::getInstance();

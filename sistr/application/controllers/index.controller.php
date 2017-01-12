@@ -25,20 +25,21 @@ class IndexController extends Controller
 
     function indexAction()
     {
-        $page = Page::getInstance();
-        $page->setTemplate('index');
-        $page->setView('index');
-        $login = new LoginForm('?controller=index&action=index');
-        $page->login= $login;
-        if ($login->isSubmitted() == false){
+        $page = Page::getInstance();//On appelle l'objet page
+        $page->setTemplate('index');//on defini le template
+        $page->setView('index');// on defini la vue
+        $login = new LoginForm('?controller=index&action=index');//On crée un objet du formulaire
+        $page->login= $login;// Créer une proprieté dynamique de page et lui attribuer la proprieté du formulaire
+        if ($login->isSubmitted() == false){ // Verification du formulaire
             return;
         }
-        $page->login->loadData(INPUT_POST);
+        $page->login->loadData(INPUT_POST);// Chargement de données
         $valid = $login->isValid();
-        if ($valid == false){
+        if ($valid == false){ // Validation des données
+            Messages::addMessage('Login/ Mot de passe incorrect',2);
             return;
         }
-        $data = $login->getData();
+        $data = $login->getData();// Sauvergarde des données du formulaire
         $auth = Authentication::getInstance();
         if (!$auth->login($data['login'],$data['motdepasse'])){
             Messages::addMessage('Login/ Mot de passe incorrect',2);

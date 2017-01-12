@@ -90,3 +90,4 @@ defined("SISTR") or die("Access Denied");
     <form id="edit-form" action="/web/sistr/index.php?controller=utilisateur&action=editer" method="POST">
     
     </form>
+    <pre><?php print_r($_POST)?></pre>

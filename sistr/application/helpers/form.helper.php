@@ -9,6 +9,7 @@
 namespace Sistr;
 use F3il\Form;
 defined('SISTR') or die("Access Denied");
+$value = '';
 abstract class FormHelper
 {
     public static function input(Form $form,$fieldName,$type){
@@ -16,7 +17,7 @@ abstract class FormHelper
             <div class="form-group">
                 <label for="<?php $form->fName($fieldName); ?>"  class="col-sm-2 control-label"><?php $form->flabel($fieldName);?> : </label>
                 <div class="col-sm-10">
-                    <input type='<?php echo $type;?>'  class="form-control" id="<?php $form->fName($fieldName); ?>"  name="<?php $form->fName($fieldName)?>"  placeholder="<?php $form->fLabel($fieldName);?>" >
+                    <input type='<?php echo $type;?>'  class="form-control" id="<?php $form->fName($fieldName); ?>"  name="<?php $form->fName($fieldName)?>"  value="<?php $form->fValue($fieldName);?>" placeholder="<?php $form->fLabel($fieldName)?>" >
                     <?php $form->fMessages($fieldName);?>
                 </div>
             </div>

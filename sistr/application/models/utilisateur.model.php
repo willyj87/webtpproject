@@ -16,9 +16,9 @@ use F3il\Database;
 class UtilisateurModel implements AuthenticationInterface
 {
     public function lister() {
-        $db = Database::getInstance();
+        $db = Database::getInstance();// On recupère la BD
 
-        $sql = "SELECT * FROM utilisateurs ORDER BY nom, prenom";
+        $sql = "SELECT * FROM utilisateurs ORDER BY nom, prenom";// Requete SQL
         try {
             $req  = $db->prepare($sql);
             $req->execute();
